@@ -48,6 +48,10 @@ export default function Home() {
           <AdvocateCard key={advocate.id} advocate={advocate} />
         ))}
       </div>
+      <br />
+      <div className="px-4 text-sm text-gray-600 italic">
+        Only the first 50 matches are displayed
+      </div>
     </main>
   );
 }
