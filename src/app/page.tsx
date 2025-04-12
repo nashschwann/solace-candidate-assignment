@@ -1,40 +1,45 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { AdvocateType } from "@/db/schema";
 import { AdvocateCard } from "./components/AdvocateCard";
 
 export default function Home() {
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [advocates, setAdvocates] = useState<AdvocateType[]>([]);
 
+  // TODO: debounce
   useEffect(() => {
-    console.log("fetching advocates...");
-    // Consider leaving filtering to the backend
-    fetch("/api/advocates").then((response) => {
-      response.json().then((jsonResponse) => {
-        setAdvocates(jsonResponse.data);
-      });
-    });
-  }, []);
-
-  const onChange = (e) => {
-    const searchTerm = e.target.value;
-
-    document.getElementById("search-term").innerHTML = searchTerm;
-  };
+    fetch(`/api/advocates?search=${encodeURIComponent(searchQuery)}`).then(
+      (response) => {
+        response.json().then((jsonResponse) => {
+          setAdvocates(jsonResponse.data as AdvocateType[]);
+        });
+      }
+    );
+  }, [searchQuery]);
 
   return (
     <main style={{ margin: "24px" }}>
       <h1>Solace Advocates</h1>
       <br />
       <br />
-      <div>
-        <p>Search</p>
-        {/* Consider keeping the search term in state */}
-        <p>
-          Searching for: <span id="search-term"></span>
-        </p>
-        <input style={{ border: "1px solid black" }} onChange={onChange} />
+      <div className="w-full max-w-md mx-auto p-4">
+        <div className="relative">
+          <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+            <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
+          </span>
+          {/* Untested hypothesis: users only need to search by city and/or speciality */}
+          <input
+            type="text"
+            placeholder="City, Speciality"
+            aria-label="Search by city or specialty"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
       </div>
       <br />
       <br />
