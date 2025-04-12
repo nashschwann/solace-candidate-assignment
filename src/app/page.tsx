@@ -38,11 +38,6 @@ export default function Home() {
     setFilteredAdvocates(filteredAdvocates);
   };
 
-  const onClick = () => {
-    console.log(advocates);
-    setFilteredAdvocates(advocates);
-  };
-
   return (
     <main style={{ margin: "24px" }}>
       <h1>Solace Advocates</h1>
@@ -55,8 +50,6 @@ export default function Home() {
           Searching for: <span id="search-term"></span>
         </p>
         <input style={{ border: "1px solid black" }} onChange={onChange} />
-        {/* Consider not having this reset button for simplicity */}
-        <button onClick={onClick}>Reset Search</button>
       </div>
       <br />
       <br />
