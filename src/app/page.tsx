@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { AdvocateType } from "@/db/schema";
+import { AdvocateCard } from "./components/AdvocateCard";
 
 export default function Home() {
-  const [advocates, setAdvocates] = useState([]);
+  const [advocates, setAdvocates] = useState<AdvocateType[]>([]);
 
   useEffect(() => {
     console.log("fetching advocates...");
@@ -36,6 +38,11 @@ export default function Home() {
       </div>
       <br />
       <br />
+      <div className="grid grid-cols-1 gap-6 px-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {advocates.map((advocate) => (
+          <AdvocateCard key={advocate.id} advocate={advocate} />
+        ))}
+      </div>
     </main>
   );
 }
