@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [advocates, setAdvocates] = useState([]);
+  // Consider not having a separate state for filteredAdvocates
   const [filteredAdvocates, setFilteredAdvocates] = useState([]);
 
   useEffect(() => {
     console.log("fetching advocates...");
+    // Consider leaving filtering to the backend
     fetch("/api/advocates").then((response) => {
       response.json().then((jsonResponse) => {
         setAdvocates(jsonResponse.data);
@@ -48,14 +50,17 @@ export default function Home() {
       <br />
       <div>
         <p>Search</p>
+        {/* Consider keeping the search term in state */}
         <p>
           Searching for: <span id="search-term"></span>
         </p>
         <input style={{ border: "1px solid black" }} onChange={onChange} />
+        {/* Consider not having this reset button for simplicity */}
         <button onClick={onClick}>Reset Search</button>
       </div>
       <br />
       <br />
+      {/* Consider not using a table for the advocates */}
       <table>
         <thead>
           <th>First Name</th>
