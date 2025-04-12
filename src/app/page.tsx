@@ -22,9 +22,7 @@ export default function Home() {
 
   return (
     <main style={{ margin: "24px" }}>
-      <h1>Solace Advocates</h1>
-      <br />
-      <br />
+      <h1 className="sr-only">Solace Advocates</h1>
       <div className="w-full max-w-md mx-auto p-4">
         <div className="relative">
           <span className="absolute inset-y-0 left-0 flex items-center pl-3">
